@@ -1,0 +1,23 @@
+		tmpDir, err := ioutil.TempDir(os.TempDir(), "gitea-info-refs-cache")
+		if err != nil {
+			log.Error("Failed to create temp dir for git-receive-pack cache: %v", err)
+			return
+		}
+
+		defer func() {
+			if err := util.RemoveAll(tmpDir); err != nil {
+				log.Error("RemoveAll: %v", err)
+			}
+		}()
+
+		if err := git.InitRepository(tmpDir, true); err != nil {
+			log.Error("Failed to init bare repo for git-receive-pack cache: %v", err)
+			return
+		}
+
+		refs, err := git.NewCommand("receive-pack", "--stateless-rpc", "--advertise-refs", ".").RunInDirBytes(tmpDir)
+		if err != nil {
+			log.Error(fmt.Sprintf("%v - %s", err, string(refs)))
+		}
+
+

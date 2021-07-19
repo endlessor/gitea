@@ -549,6 +549,93 @@
         }
       }
     },
+    "/lq/{owner}/{repo}/{action}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "lq"
+        ],
+        "summary": "Runs LQ action for default branch",
+        "operationId": "lqDefaultBranchAction",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "owner of the repo",
+            "name": "owner",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "name of the repo",
+            "name": "repo",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "LQ action",
+            "name": "action",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/lq/{owner}/{repo}:{branch}/{action}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "lq"
+        ],
+        "summary": "Runs LQ action for specific branch",
+        "operationId": "lqBranchAction",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "owner of the repo",
+            "name": "owner",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "name of the repo",
+            "name": "repo",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "branch name",
+            "name": "branch",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "LQ action",
+            "name": "action",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/markdown": {
       "post": {
         "consumes": [

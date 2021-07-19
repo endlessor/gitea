@@ -707,6 +707,19 @@ func Routes() *web.Route {
 
 		m.Combo("/repositories/{id}", reqToken()).Get(repo.GetByID)
 
+		m.Group("/lq/{username}/{reponame}", func() {
+			m.Group("", func() {
+				m.Get("/{action}", repo.LqDefaultBranchActionGet)
+				//m.Put("/{action}", repo.LqDefaultBranchActionPut)
+				//m.Delete("/{action}", repo.LqDefaultBranchActionDelete)
+			}, context.ReferencesGitRepo(true), reqRepoReader(models.UnitTypeCode))
+			m.Group(":{branch}", func() {
+				m.Get("/{action}", repo.LqBranchActionGet)
+				//m.Put("/{action}", repo.LqBranchActionPut)
+				//m.Delete("/{action}", repo.LqBranchActionDelete)
+			}, context.ReferencesGitRepo(true), reqRepoReader(models.UnitTypeCode))
+		}, repoAssignment())
+
 		m.Group("/repos", func() {
 			m.Get("/search", repo.Search)
 

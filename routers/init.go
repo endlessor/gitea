@@ -32,6 +32,7 @@ import (
 	"code.gitea.io/gitea/modules/svg"
 	"code.gitea.io/gitea/modules/task"
 	"code.gitea.io/gitea/modules/translation"
+	"code.gitea.io/gitea/services/lq"
 	"code.gitea.io/gitea/services/mailer"
 	mirror_service "code.gitea.io/gitea/services/mirror"
 	pull_service "code.gitea.io/gitea/services/pull"
@@ -192,4 +193,6 @@ func GlobalInit(ctx context.Context) {
 	sso.Init()
 
 	svg.Init()
+
+	lq.InitRunner()
 }
